@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ADI SELLX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    
+    <style>
+        /* Checkout page ke liye alag se style */
+        .order-summary-box {
+            max-width: 500px; margin: 30px auto 0 auto; background-color: #1e1e1e;
+            border: 1px solid #333; border-radius: 10px; padding: 30px;
+            opacity: 0; animation: fadeIn 0.8s ease-out 0.5s forwards;
+        }
+        .summary-title {
+            text-align: center; color: #00aaff; font-size: 1.5rem;
+            font-weight: 700; margin-top: 0; margin-bottom: 25px;
+        }
+        .price-breakdown {
+            font-size: 1.1rem; color: #e0e0e0;
+            margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 20px;
+        }
+        .price-breakdown div {
+            display: flex; justify-content: space-between; margin-bottom: 10px;
+        }
+        .price-breakdown .label { color: #b0b0b0; }
+        .price-breakdown .value { font-weight: 700; }
+        .price-breakdown .discount { color: #00ff88; }
+        .price-breakdown .final-price {
+            font-size: 1.5rem; color: #ffffff;
+            border-top: 2px dashed #444; padding-top: 15px; margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav> </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            
+            <a href="/paid-push" class="back-button">
+                &larr; Back to Plans
+            </a>
+            
+            <h2 class="section-title">🛒 Order Summary</h2>
+
+            <div class="order-summary-box">
+                <h3 class="summary-title">{{ product.name }}</h3>
+
+                <div class="price-breakdown">
+                    <div>
+                        <span class="label">Plan Price:</span>
+                        <span class="value">₹{{ "%.2f"|format(original_price) }}</span>
+                    </div>
+                    
+                    {% if discount_amount > 0 %}
+                    <div>
+                        <span class="label">VIP Discount ({{ VIP_DISCOUNT_PERCENT }}%):</span>
+                        <span class="value discount">- ₹{{ "%.2f"|format(discount_amount) }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="final-price">
+                        <span class="label">Total Payable:</span>
+                        <span class="value">₹{{ "%.2f"|format(final_price) }}</span>
+                    </div>
+                </div>
+                <p class="form-info" style="margin-top: 0;">
+                    Please confirm your order to proceed to payment.
+                </p>
+                
+                <button id="rzp-button1" class="login-btn form-button">
+                    Confirm & Pay ₹{{ "%.2f"|format(final_price) }}
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer> </footer>
+
+    <script>
+        var options = {
+            "key": "{{ razorpay_key_id }}",
+            "amount": "{{ amount_in_paise }}", // Final amount (paise mein)
+            "currency": "INR",
+            "name": "ADI SELLX",
+            "description": "Payment for {{ product.name }}",
+            "order_id": "{{ razorpay_order_id }}",
+            
+            "handler": function (response){
+                // Payment successful hone par
+                alert('Payment Successful! Processing your order...');
+                window.location.href = "{{ url_for('my_orders_page') }}";
+            },
+            "prefill": {
+                "name": "{{ user.username }}",
+                "email": "{{ user.username }}@example.com"
+            },
+            "theme": {
+                "color": "#00aaff"
+            },
+            "modal": {
+                "ondismiss": function(){
+                    alert('Payment cancelled!');
+                    window.location.href = "{{ url_for('paid_push_page') }}";
+                }
+            }
+        };
+        
+        var rzp1 = new Razorpay(options);
+        
+        document.getElementById('rzp-button1').onclick = function(e){
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+    
+</body>
+</html>
