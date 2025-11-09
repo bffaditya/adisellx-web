@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Push Control Center - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .push-list-container { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 30px; }
+        .push-section { background-color: #1e1e1e; border: 1px solid #333; border-radius: 10px; padding: 20px; }
+        .push-section h3 { color: #00aaff; font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid #3a3a3a; padding-bottom: 10px; }
+        .push-section.in-progress h3 { color: #00ff88; } 
+        .player-card { background-color: #121212; border: 1px solid #444; padding: 15px; border-radius: 8px; margin-bottom: 15px; }
+        .player-card strong { color: #ffc107; display: block; margin-bottom: 5px; }
+        .player-info { font-size: 0.9rem; color: #b0b0b0; line-height: 1.5; }
+        .player-actions a { display: inline-block; margin-top: 10px; margin-right: 8px; padding: 5px 10px; border-radius: 4px; text-decoration: none; font-size: 0.8rem; font-weight: 700; }
+        .btn-update { background-color: #00aaff; color: white; }
+        .btn-pause { background-color: #ffc107; color: #121212; }
+        .btn-complete { background-color: #00ff88; color: #121212; }
+        .btn-remove { background-color: #ff4d4d; color: white; }
+        .btn-add-lobby { background-color: #00ff88; color: #121212; }
+        .general-actions { margin-top: 20px; padding: 15px; background-color: #2a2a2a; border-radius: 8px; text-align: center; }
+        .general-actions a { display: inline-block; margin: 8px; padding: 8px 15px; background-color: #444; border-radius: 5px; color: white; text-decoration: none; font-weight: 700; transition: background-color 0.2s; }
+        .general-actions a:hover { background-color: #00aaff; }
+        @media (min-width: 768px) { .push-list-container { grid-template-columns: 1fr 1fr 1fr; } }
+    </style>
+</head>
+<body>
+    <nav> </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            <a href="/admin" class="back-button"> &larr; Back to Admin Dashboard </a>
+            <h2 class="section-title">🚀 Push Control Center</h2>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div style="max-width: 100%; margin: 0 auto 20px auto;">
+                {% for category, message in messages %}
+                  <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <div class="general-actions">
+                <a href="{{ url_for('admin_push_teamcode_form') }}" style="background-color: #00aaff;">🔑 Send TeamCode to Lobby</a>
+                <a href="{{ url_for('admin_push_set_offline_form') }}" style="background-color: #ffc107;">🌙 Set Offline Time</a>
+                <a href="#" style="background-color: #ff4d4d; pointer-events: none; opacity: 0.7;">⏳ Notify Busy (Future)</a>
+            </div>
+
+            <div class="push-list-container">
+                
+                <div class="push-section in-progress">
+                    <h3>In Progress ({{ inprogress_players|length }})</h3>
+                    {% for player in inprogress_players %}
+                    <div class="player-card" style="border-left: 5px solid #00ff88;">
+                        <strong>{{ player.user_display_name }} (TC: {{ player.team_code }})</strong>
+                        <div class="player-info">
+                            Plan: {{ player.plan_name }} | Target: {{ player.total_target }} ⭐
+                            <br>
+                            Progress: <span style="color: #00ff88;">{{ player.current_progress }}</span> / {{ player.total_target }} ⭐
+                        </div>
+                        <div class="player-actions">
+                            <a href="{{ url_for('admin_push_return_to_lobby', order_id=player.order_id) }}" class="action-btn btn-remove">🔄 Return to Lobby</a>
+                            <a href="{{ url_for('admin_push_update_progress_form', order_id=player.order_id) }}" class="action-btn btn-update">📊 Update Progress</a>
+                            <a href="{{ url_for('admin_push_pause', order_id=player.order_id) }}" class="action-btn btn-pause">⏸️ Pause Push</a>
+                            <a href="{{ url_for('admin_push_complete', order_id=player.order_id) }}" class="action-btn btn-complete">✅ Mark Completed</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p style="color: #888;">Koi bhi push 'In Progress' nahi hai.</p>
+                    {% endfor %}
+                </div>
+
+                <div class="push-section">
+                    <h3>Active Lobby ({{ lobby_players|length }})</h3>
+                    {% for player in lobby_players %}
+                    <div class="player-card">
+                        <strong>{{ player.user_display_name }} (User: @{{ player.username or 'N/A' }})</strong>
+                        <div class="player-info">
+                            IGN/UID: {{ player.in_game_name or 'N/A' }} / {{ player.in_game_uid or 'N/A' }}
+                        </div>
+                        <div class="player-actions">
+                            <a href="{{ url_for('admin_push_update_info_form', order_id=player.order_id) }}" class="action-btn btn-update">📝 Update IGN/UID</a>
+                            <a href="{{ url_for('admin_push_remove_lobby', order_id=player.order_id) }}" class="action-btn btn-remove">🗑️ Remove Lobby</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p style="color: #888;">Lobby khaali hai. Waiting list se players ko add karein.</p>
+                    {% endfor %}
+                </div>
+
+                <div class="push-section">
+                    <h3>Waiting List ({{ waiting_players|length }})</h3>
+                    {% for player in waiting_players %}
+                    <div class="player-card" style="border-left: 5px solid {{ '#ffc107' if player.status == 'PAUSED' else '#00aaff' }};">
+                        <strong>{{ player.user_display_name }} (User: @{{ player.username or 'N/A' }})</strong>
+                        <div class="player-info">
+                            Plan: {{ player.plan_name }} | Status: <span style="color: {{ '#ffc107' if player.status == 'PAUSED' else '#00aaff' }};">{{ player.status }}</span>
+                        </div>
+                        <div class="player-actions">
+                            <a href="{{ url_for('admin_push_add_lobby', order_id=player.order_id) }}" class="action-btn btn-add-lobby">
+                                ➕ Add to Lobby
+                            </a>
+                            <a href="{{ url_for('admin_push_pause', order_id=player.order_id) }}" class="action-btn btn-pause">
+                                ⏸️ Pause
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p style="color: #888;">Waiting list khaali hai।</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer> </footer>
+</body>
+</html>

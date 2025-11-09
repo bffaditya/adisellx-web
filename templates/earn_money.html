@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earn Money - ADI SELLX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">ADI<span>SELLX</span></a>
+                <div class="menu-links">
+                    <a href="/">Home</a>
+                    <a href="/proofs">Proofs</a>
+                    <a href="/support">Support</a>
+                </div>
+            </div>
+            <div class="user-actions">
+                 
+                 {% if session['username'] %}
+                    
+                    {% if session['is_admin'] %}
+                        <a href="/admin" class="login-btn" style="background-color: #ffc107; color: #121212; margin-right: 10px;">⚙️ Admin Panel</a>
+                    {% endif %}
+                    
+                    <span style="color: white; margin-right: 10px;">Welcome, {{ session['username'] }}!</span>
+                    <a href="/logout" class="login-btn" style="background-color: #ff4d4d;">Logout</a>
+                 
+                 {% else %}
+                    <a href="{{ url_for('login_page', ref=referrer_username) }}" class="login-btn">Login / Register</a>
+                 {% endif %}
+                 </div>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            
+            <a href="/" class="back-button">
+                &larr; Back to Home
+            </a>
+
+            <h2 class="section-title">🤑 Earn Money</h2>
+            <p style="text-align: center; color: #b0b0b0; margin-top: -20px; margin-bottom: 30px;">
+                Free wallet cash ke liye daily tasks poore karein!
+            </p>
+
+            <div class="wallet-balance-card">
+                <span class="balance-label">Your Current Wallet Balance</span>
+                <span class="balance-amount">₹0.00</span>
+            </div>
+            
+            <div class="feature-grid">
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎁</span>
+                    <h3 class="feature-title">Daily Bonus</h3>
+                    <p class="feature-status available">✅ Available Now</p>
+                    <button class="feature-button claim-bonus">Claim ₹2.00 Bonus</button>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎡</span>
+                    <h3 class="feature-title">Spin & Win</h3>
+                    <p class="feature-status cooldown">⏳ Available in: 10h 15m 30s</p>
+                    <button class="feature-button" disabled>Spin Now</button>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Support</a>
+            </div>
+            <p>© 2025 ADI SELLX. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

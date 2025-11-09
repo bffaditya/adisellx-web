@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set Offline Time - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav></nav>
+
+    <section class="dashboard">
+        <div class="container">
+            
+            <a href="/admin/push-control" class="back-button">&larr; Back to PCC</a>
+
+            <h2 class="section-title">🌙 Set Offline Time</h2>
+            
+            <form class="login-form" method="POST" action="{{ url_for('admin_push_notify_offline') }}">
+                
+                <label for="offline_time">Kab Waapis Online Aaoge?</label>
+                <input type="text" id="offline_time" name="offline_time" placeholder="Example: Aaj raat 11:30 PM tak ya Kal subah 9 AM" required>
+                
+                <p class="form-info">Yeh message Waiting List aur Paused players ko bheja jayega।</p>
+                
+                <button type="submit" class="login-btn form-button" style="background-color: #ffc107; color: #121212;">
+                    🌙 Notify Users
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <footer></footer>
+</body>
+</html>

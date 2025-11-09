@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - ADI SELLX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">ADI<span>SELLX</span></a>
+                <div class="menu-links">
+                    <a href="/">Home</a>
+                    <a href="/proofs">Proofs</a>
+                    <a href="/support">Support</a>
+                </div>
+            </div>
+            <div class="user-actions">
+                 
+                 {% if session['username'] %}
+                    
+                    {% if session['is_admin'] %}
+                        <a href="/admin" class="login-btn" style="background-color: #ffc107; color: #121212; margin-right: 10px;">⚙️ Admin Panel</a>
+                    {% endif %}
+                    
+                    <span style="color: white; margin-right: 10px;">Welcome, {{ session['username'] }}!</span>
+                    <a href="/logout" class="login-btn" style="background-color: #ff4d4d;">Logout</a>
+                 
+                 {% else %}
+                    <a href="{{ url_for('login_page', ref=referrer_username) }}" class="login-btn">Login / Register</a>
+                 {% endif %}
+                 </div>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            
+            <a href="/paid-push" class="back-button">
+                &larr; Back to Plans
+            </a>
+            
+            <h2 class="section-title">🛒 Order Summary</h2>
+
+            <form class="add-funds-form" method="POST" action="/pay/{{ product.id }}">
+                
+                <p style="text-align: center; color: #b0b0b0; font-size: 1.1rem; margin-top: 0;">
+                    Aap khareed rahe hain:
+                </p>
+                <h3 class="offer-title" style="margin-bottom: 25px;">{{ product.name }}</h3>
+
+                <div class="amount-input-box" style="justify-content: center;">
+                    <span>₹</span>
+                    <input type="text" value='{{ "%.0f"|format(product.price) }}' readonly style="font-size: 2.5rem; color: #fff; text-align: center; pointer-events: none;">
+                    <span>.00</span>
+                </div>
+                
+                <p class="form-info" style="margin-top: 20px;">
+                    Yeh amount aapke wallet se katega.
+                </p>
+                
+                <button type="submit" class="login-btn form-button">
+                    Pay Now (Fake Payment)
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+                <a href="/support">Support</a>
+            </div>
+            <p>© 2025 ADI SELLX. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ADI SELLX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">ADI<span>SELLX</span></a>
+                <div class="menu-links">
+                    <a href="/">Home</a>
+                    <a href="/proofs">Proofs</a>
+                    <a href="/support">Support</a>
+                </div>
+            </div>
+            <div class="user-actions">
+                 
+                 {% if session['username'] %}
+                    
+                    {% if session['is_admin'] %}
+                        <a href="/admin" class="login-btn" style="background-color: #ffc107; color: #121212; margin-right: 10px;">⚙️ Admin Panel</a>
+                    {% endif %}
+                    
+                    <span style="color: white; margin-right: 10px;">Welcome, {{ session['username'] }}!</span>
+                    <a href="/logout" class="login-btn" style="background-color: #ff4d4d;">Logout</a>
+                 
+                 {% else %}
+                    <a href="{{ url_for('login_page', ref=referrer_username) }}" class="login-btn">Login / Register</a>
+                 {% endif %}
+                 </div>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            <h2 class="section-title">Login to Your Account</h2>
+
+            <form class="login-form" method="POST" action="/login">
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Apna username daalein" required>
+                
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Apna password daalein" required>
+                
+                <button type="submit" class="login-btn form-button">Login</button>
+
+                <p class="form-switch-link">
+                    Naya account banana hai? <a href="/register">Yahaan register karein.</a>
+                </p>
+            </form>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+                <a href="/support">Support</a>
+            </div>
+            <p>© 2025 ADI SELLX. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,1232 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* Animations */
+@keyframes glow {
+    0% { text-shadow: 0 0 5px #00aaff, 0 0 10px #00aaff; }
+    50% { text-shadow: 0 0 10px #00aaff, 0 0 20px #00aaff, 0 0 30px #00aaff; }
+    100% { text-shadow: 0 0 5px #00aaff, 0 0 10px #00aaff; }
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Body (Dark Mode) */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #121212;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 1. Navigation Bar (Clean) --- */
+nav {
+    background-color: #1e1e1e;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Left Side (Logo + Main Links) */
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+nav .logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+}
+nav .logo span { color: #00aaff; }
+
+nav .menu-links {
+    /* Mobile par links chhup jayenge */
+    display: none; 
+    gap: 25px;
+}
+nav .menu-links a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+nav .menu-links a:hover {
+    color: #00aaff;
+}
+
+/* Right Side (Login Button) */
+nav .user-actions {
+    display: flex;
+    align-items: center;
+}
+
+/* Login Button (Logged Out) */
+.login-btn {
+    background-color: #00aaff;
+    color: #ffffff !important;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+.login-btn:hover {
+    background-color: #0088cc;
+}
+/* --- Navbar CSS End --- */
+
+
+/* --- 2. Hero Section (Welcome) --- */
+.hero {
+    text-align: center;
+    padding: 60px 20px 80px 20px;
+    background: linear-gradient(rgba(18, 18, 18, 0.8), #121212 90%);
+}
+.hero h1 {
+    font-size: 2.5rem; /* Mobile ke liye thoda chhota */
+    color: #ffffff;
+    animation: glow 2s infinite ease-in-out, fadeIn 0.8s ease-out;
+    animation-iteration-count: infinite, 1;
+}
+.hero p {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+
+/* --- 3. Dashboard Section --- */
+.dashboard {
+    padding: 0 0 50px 0;
+}
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.8s forwards;
+}
+
+/* --- Mobile Responsive Grid --- */
+.dashboard-grid {
+    display: grid;
+    /* Mobile par 2 column */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; /* Mobile par thoda kam gap */
+}
+
+/* --- 4. Footer --- */
+footer {
+    background-color: #1e1e1e;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+    border-top: 1px solid #333;
+}
+footer .footer-links a {
+    color: #b0b0b0;
+    text-decoration: none;
+    margin: 0 10px;
+}
+footer .footer-links a:hover {
+    color: #00aaff;
+}
+footer p {
+    color: #888;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+/* --- Better Back Button --- */
+.back-button {
+    display: inline-block;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444;
+    padding: 10px 20px;
+    border-radius: 25px; /* Round pill shape */
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+.back-button:hover {
+    background-color: #3a3a4a;
+    border-color: #00aaff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 170, 255, 0.2);
+}
+
+/* --- Mobile Panel Page ke liye Naya Style --- */
+.panel-card {
+    /* Mobile par 2 column grid kaam kare, isliye 100% width */
+    grid-column: 1 / -1; /* Yeh line poori width legi grid mein */
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px; /* Mobile ke liye thoda kam padding */
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.panel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 170, 255, 0.2);
+    border-color: #00aaff;
+}
+.panel-card h3 {
+    font-size: 1.5rem; /* Mobile ke liye chhota title */
+    font-weight: 700;
+    color: #00aaff; /* Blue title */
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.panel-card p {
+    color: #b0b0b0;
+    font-size: 0.9rem; /* Mobile ke liye chhota text */
+    white-space: pre-wrap; /* Yeh description ko sahi se dikhayega */
+    margin-bottom: 20px;
+}
+.plan-list {
+    display: flex;
+    flex-direction: column; /* Plans ko line se dikhayega */
+    gap: 10px; /* Plans ke beech mein gap */
+}
+.plan-item {
+    display: flex;
+    flex-direction: column; /* Mobile par upar-neeche */
+    align-items: flex-start; /* Left align */
+    background-color: #2a2a2a;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #444;
+    gap: 10px; /* Naam aur button ke beech gap */
+}
+.plan-item-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+.plan-item-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+.plan-item-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #00aaff;
+}
+.buy-button {
+    background-color: #00aaff;
+    color: #ffffff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%; /* Mobile par poori width ka button */
+}
+.buy-button:hover {
+    background-color: #0088cc;
+}
+
+/* --- Desktop par Grid bada karega --- */
+/* Media query for screens larger than 768px (tablets and desktops) */
+@media (min-width: 768px) {
+    
+    /* Nav menu ko desktop par dikhao */
+    nav .menu-links {
+        display: flex;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem; /* Desktop par thoda bada text */
+    }
+
+    .dashboard-grid {
+        /* Desktop par 4 column */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+    }
+
+    .dash-button {
+        font-size: 1.1rem; /* Desktop par thoda bada text */
+    }
+
+    /* Panel card ko desktop par sahi karo */
+    .panel-card {
+        grid-column: auto; /* Desktop par yeh setting zaroori hai */
+        padding: 25px;
+    }
+    .panel-card h3 {
+        font-size: 1.8rem;
+    }
+    .panel-card p {
+        font-size: 1rem;
+    }
+    .plan-item {
+        flex-direction: row; /* Desktop par aamne-saamne */
+        align-items: center;
+    }
+    .buy-button {
+        width: auto; /* Desktop par auto width */
+    }
+}
+
+/* --- Dashboard Button Style (Pahle se tha) --- */
+.dash-button {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 1.2s forwards;
+    /* Aspect ratio ko set karein taaki button square bane */
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dash-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 170, 255, 0.2);
+    border-color: #00aaff;
+}
+.dash-button span {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+/* --- Wallet Page ke liye Naya Style --- */
+.wallet-balance-card {
+    background: linear-gradient(145deg, #2a2a3a, #1a1a2a);
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto 25px auto;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.balance-label {
+    display: block;
+    font-size: 1.1rem;
+    color: #b0b0b0;
+    margin-bottom: 10px;
+}
+.balance-amount {
+    display: block;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.2;
+}
+
+.vip-card {
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-left: 5px solid #00aaff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    margin: 0 auto 25px auto;
+    color: #e0e0e0;
+    font-weight: 500;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.8s forwards;
+}
+
+.wallet-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 button side-by-side */
+    gap: 20px;
+    max-width: 400px;
+    margin: 0 auto 25px auto;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 1s forwards;
+}
+.wallet-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 25px 20px;
+    text-decoration: none;
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.wallet-button span {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+.wallet-button.add-funds:hover {
+    border-color: #00ff88; /* Green */
+    color: #00ff88;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 255, 136, 0.15);
+}
+.wallet-button.withdraw:hover {
+    border-color: #ff4d4d; /* Red */
+    color: #ff4d4d;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(255, 77, 77, 0.15);
+}
+
+.wallet-info {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    max-width: 400px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 1.2s forwards;
+}
+.wallet-info p {
+    margin: 5px 0;
+}
+/* --- Earn Money Page ke liye Naya Style --- */
+.feature-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile par ek column */
+    gap: 20px;
+    max-width: 400px; /* Wallet card jaisa same width */
+    margin: 25px auto 0 auto;
+}
+
+.feature-card {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.8s forwards;
+}
+.feature-card:hover {
+    border-color: #00aaff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 170, 255, 0.15);
+}
+.feature-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+.feature-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 10px 0;
+}
+.feature-status {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+.feature-status.available {
+    color: #00ff88; /* Green */
+    font-weight: 500;
+}
+.feature-status.cooldown {
+    color: #ffc107; /* Yellow */
+    font-weight: 500;
+}
+
+.feature-button {
+    background-color: #00aaff;
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1rem;
+}
+.feature-button:hover {
+    background-color: #0088cc;
+}
+.feature-button:disabled {
+    background-color: #333;
+    color: #777;
+    cursor: not-allowed;
+}
+
+/* Desktop par 2 column mein dikhao */
+@media (min-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr 1fr; /* Desktop par 2 column */
+        max-width: 700px; /* Thoda chauda */
+    }
+}
+/* --- Refer Page Animation Fix --- */
+.referral-card.delay-2 {
+    /* Yeh pehle card ke baad (0.8s par) fade in hoga */
+    animation: fadeIn 0.8s ease-out 0.8s forwards;
+}
+
+/* Yeh 'feature-icon' aur 'feature-title' ko .referral-card ke andar kaam karne dega */
+.referral-card .feature-icon {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 10px;
+}
+.referral-card .feature-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+}
+.referral-card .feature-status {
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+.referral-card .feature-status.available {
+    color: #00ff88; /* Green */
+    font-weight: 500;
+}
+/* --- My Orders Page ke liye Naya Style --- */
+.order-list {
+    max-width: 800px; /* Thoda chauda list */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.order-item {
+    display: flex;
+    flex-direction: column; /* Mobile par upar-neeche */
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    gap: 15px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.order-item-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+.order-id, .order-date {
+    font-size: 0.9rem;
+    color: #888;
+}
+.order-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Mobile par left-align */
+    gap: 8px;
+}
+.order-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #00aaff;
+}
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+.status-badge.delivered {
+    background-color: rgba(0, 255, 136, 0.1);
+    color: #00ff88;
+}
+.status-badge.pending {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+.status-badge.rejected {
+    background-color: rgba(255, 77, 77, 0.1);
+    color: #ff4d4d;
+}
+
+/* Desktop par order item ko side-by-side karo */
+@media (min-width: 768px) {
+    .order-item {
+        flex-direction: row; /* Desktop par aamne-saamne */
+        align-items: center;
+    }
+    .order-status {
+        align-items: flex-end; /* Desktop par right-align */
+    }
+}
+/* --- Today's Offer Page (Naya Style) --- */
+.offer-card-new {
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+    border: 1px solid #00aaff; /* Glowing Border */
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    margin: 30px auto 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 170, 255, 0.2);
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+
+/* Offer Badge (e.g., "OFFER OF THE DAY") */
+.offer-badge {
+    display: inline-block;
+    background-color: #00aaff;
+    color: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.offer-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 15px 0;
+}
+
+.offer-description {
+    font-size: 1.2rem;
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+.offer-description strong {
+    color: #e0e0e0;
+}
+.offer-highlight {
+    color: #00ff88; /* Green highlight */
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.offer-code-box {
+    background-color: #121212;
+    border: 2px dashed #00aaff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+.offer-code-box span {
+    font-size: 1.1rem;
+    color: #b0b0b0;
+    display: block;
+    margin-bottom: 5px;
+}
+.offer-code-box strong {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 2px;
+}
+
+.offer-expiry {
+    font-size: 0.9rem;
+    color: #888;
+}
+/* --- Proofs Page ke liye Naya Style --- */
+.feature-card-link {
+    display: block; /* Poore card ko clickable banayega */
+    text-decoration: none;
+    /* Animation ko link par move kar rahe hain */
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.8s forwards;
+}
+
+/* Card ke andar ka default animation band karo */
+.feature-card-link .feature-card {
+    opacity: 1;
+    animation: none;
+}
+/* --- FAQ Page ke liye Naya Style --- */
+.faq-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.faq-item {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    overflow: hidden; /* Jaroori hai border-radius ke liye */
+    transition: border-color 0.3s ease;
+}
+.faq-item:hover {
+    border-color: #00aaff;
+}
+.faq-question {
+    display: block; /* Poori width lene ke liye */
+    padding: 20px 25px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    position: relative; /* Arrow ke liye */
+}
+/* Arrow (Plus icon) */
+.faq-question::after {
+    content: '+';
+    position: absolute;
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: #00aaff;
+    transition: transform 0.2s ease;
+}
+/* Jab open ho, arrow (Minus icon) */
+.faq-item[open] .faq-question::after {
+    content: '−';
+    transform: translateY(-50%) rotate(180deg);
+}
+.faq-answer {
+    background-color: #121212;
+    padding: 0 25px 25px 25px;
+    color: #b0b0b0;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+.faq-answer p {
+    margin: 0;
+    white-space: pre-wrap; /* Bot jaisa text dikhane ke liye */
+}
+/* --- Login/Register Form ke liye Naya Style --- */
+.login-form {
+    max-width: 500px;
+    margin: 30px auto 0 auto;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.login-form label {
+    display: block;
+    font-size: 1rem;
+    color: #b0b0b0;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    background-color: #121212;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 12px 15px;
+    color: #e0e0e0;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    box-sizing: border-box; /* Padding ko width ke andar rakhega */
+}
+.login-form input:focus {
+    border-color: #00aaff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+}
+.form-button {
+    width: 100%;
+    font-size: 1.1rem;
+    padding: 12px 15px;
+}
+.form-switch-link {
+    text-align: center;
+    color: #b0b0b0;
+    margin-top: 20px;
+    font-size: 1rem;
+}
+.form-switch-link a {
+    color: #00aaff;
+    font-weight: 700;
+    text-decoration: none;
+}
+.form-switch-link a:hover {
+    text-decoration: underline;
+}
+
+/* Flash Messages (Error/Success) */
+.flash-message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.flash-message.error {
+    background-color: rgba(255, 77, 77, 0.2);
+    color: #ff4d4d;
+    border: 1px solid #ff4d4d;
+}
+.flash-message.success {
+    background-color: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+    border: 1px solid #00ff88;
+}
+/* --- Wallet Page VIP Card ke liye Naya Style --- */
+.vip-card.vip-active {
+    border-left: 5px solid #00ff88; /* Green border */
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.vip-progress-text {
+    display: block;
+    font-size: 0.9rem;
+    color: #b0b0b0;
+    margin-top: 10px;
+}
+.vip-progress-bar-container {
+    width: 100%;
+    background-color: #121212;
+    border: 1px solid #333;
+    border-radius: 10px;
+    height: 12px;
+    margin-top: 10px;
+    overflow: hidden; /* Zaroori hai */
+}
+.vip-progress-bar {
+    height: 100%;
+    background-color: #00aaff;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+/* --- Naya "Add Funds" Form Style --- */
+.add-funds-form {
+    max-width: 500px;
+    margin: 30px auto 0 auto;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.add-funds-form label {
+    display: block;
+    font-size: 1rem;
+    color: #b0b0b0;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-align: center;
+}
+
+/* Naya Amount Input Box */
+.amount-input-box {
+    display: flex;
+    align-items: center;
+    background-color: #121212;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+.amount-input-box:focus-within {
+    border-color: #00aaff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+}
+.amount-input-box span {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #888;
+}
+.amount-input-box input[type="number"] {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 2.5rem; /* Bada text */
+    font-weight: 700;
+    text-align: center;
+    padding: 10px 0;
+    /* Browser ke default arrows hatao */
+    -moz-appearance: textfield;
+    appearance: textfield; /* <-- YEH NAYI LINE ADD KARO */
+}
+.amount-input-box input::-webkit-outer-spin-button,
+.amount-input-box input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.amount-input-box input:focus {
+    outline: none;
+}
+
+/* Naye Quick Add Buttons */
+.quick-add-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* 3 button */
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.quick-add-btn {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.quick-add-btn:hover {
+    background-color: #3a3a4a;
+    border-color: #00aaff;
+    color: #ffffff;
+}
+.form-info {
+    text-align: center;
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+/* --- Naya "Withdraw" Form Style --- */
+.withdraw-form {
+    max-width: 500px;
+    margin: 30px auto 0 auto;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 30px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.withdraw-form label {
+    display: block;
+    font-size: 1rem;
+    color: #b0b0b0;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-align: center;
+}
+.current-balance-info {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #b0b0b0;
+    margin-bottom: 25px;
+}
+.current-balance-info strong {
+    color: #00ff88;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+/* Naya UPI Input Box */
+.upi-input-box {
+    display: flex;
+    align-items: center;
+    background-color: #121212;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+.upi-input-box:focus-within {
+    border-color: #00aaff;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+}
+.upi-input-box input[type="text"] {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+.upi-input-box input:focus {
+    outline: none;
+}
+/* --- Referral History Table ke liye Naya Style --- */
+.referral-history {
+    max-width: 500px;
+    margin: 25px auto 0 auto;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 25px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 1s forwards; /* Thoda late animate hoga */
+}
+.history-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+.history-table {
+    width: 100%;
+    border-collapse: collapse; /* Borders ko merge karega */
+}
+.history-table th, .history-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+.history-table th {
+    font-size: 0.9rem;
+    color: #888;
+    text-transform: uppercase;
+}
+.history-table td {
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+/* Username wala column */
+.history-table td:first-child {
+    font-weight: 500;
+}
+/* Amount wala column */
+.history-table td:last-child {
+    color: #00ff88; /* Green */
+    font-weight: 700;
+    text-align: right;
+}
+/* Aakhri row ka border hatao */
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+/* Jab table khaali ho */
+.history-table tbody tr td[colspan="2"] {
+    text-align: center;
+    color: #888;
+}
+/* --- Naya "Warning" Flash Message --- */
+.flash-message.warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+    border: 1px solid #ffc107;
+}
+/* --- Naya "Product Card" Style (Paid Push Page) --- */
+.product-card {
+    display: flex;
+    justify-content: space-between; /* Aamne-saamne */
+    align-items: center;
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px 25px;
+    transition: all 0.3s ease;
+    
+    /* Grid mein poori line lega */
+    grid-column: 1 / -1; 
+    
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out 0.5s forwards;
+}
+.product-card:hover {
+    border-color: #00aaff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 170, 255, 0.15);
+}
+.product-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+.product-price {
+    font-size: 1.1rem;
+    color: #b0b0b0;
+}
+.buy-button-new {
+    background-color: #00aaff;
+    color: #ffffff !important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+.buy-button-new:hover {
+    background-color: #0088cc;
+}
+
+/* Desktop par card ko chhota karo */
+@media (min-width: 768px) {
+    .product-card {
+        grid-column: auto; /* Desktop par grid mein fit ho jayega */
+    }
+}
+/* --- Admin Panel Button Style --- */
+.dash-button.admin-button {
+    background-color: #1e1e1e;
+    border-color: #555;
+}
+.dash-button.admin-button:hover {
+    border-color: #ffc107; /* Yellow border */
+    box-shadow: 0 8px 15px rgba(255, 193, 7, 0.2);
+}
+.dash-button.admin-button span {
+    font-size: 2.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+/* --- Product Table Style (Manage Orders jaisa hi) --- */
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.product-table th, .product-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+.product-table th {
+    background-color: #2a2a2a;
+    color: #ffc107; /* Admin yellow */
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.product-table td {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    font-size: 0.95rem;
+}
+/* Fix 1: Alternate row color for better separation */
+.product-table tbody tr:nth-child(even) td {
+    background-color: #1a1a1a; 
+}
+/* Fix 2: Hover effect */
+.product-table tr:hover td {
+    background-color: #252525;
+}
+/* Fix 3: Category Header ko clear look */
+.product-table .category-header {
+    background-color: #00aaff; /* Blue/Cyan Background */
+    color: #121212; /* Dark text */
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: 900; /* Extra bold */
+    padding: 10px;
+    border-bottom: 3px solid #00ff88; /* Green underline */
+}
+.product-table .price-input {
+    background-color: #121212;
+    border: 1px solid #444;
+    color: #00ff88; /* Price input text green */
+    padding: 8px;
+    width: 80px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 700;
+}
+.product-table .btn-save {
+    background-color: #00aaff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.product-table .availability-btn {
+    background-color: #ff4d4d; 
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+}
+.product-table .availability-btn.available {
+    background-color: #00ff88; 
+    color: #121212;
+}
+
+/* Mobile Adjustments (wahi rahenge) */
+@media (max-width: 768px) {
+    .product-table thead { display: none; }
+    .product-table, .product-table tbody, .product-table tr, .product-table td { 
+        display: block; 
+        width: 100%;
+    }
+    .product-table tr { 
+        margin-bottom: 15px;
+        border: 1px solid #333;
+        border-radius: 8px;
+    }
+    .product-table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+    .product-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 700;
+        color: #888;
+        text-align: left;
+    }
+}
+/* --- Product Price Highlight (Final Fix) --- */
+.product-card .product-price {
+    font-weight: 700 !important;
+    color: #00ff88 !important; /* Green highlight */
+    font-size: 1.1rem !important;
+}
