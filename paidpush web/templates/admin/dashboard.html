@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - ADI SELLX</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">ADMIN<span>PANEL</span></a>
+                <div class="menu-links">
+                    <a href="/">View Site</a>
+                    <a href="/admin">Dashboard</a>
+                </div>
+            </div>
+            <div class="user-actions">
+                 {% if session['username'] %}
+                    <span style="color: white; margin-right: 10px;">Welcome, {{ session['username'] }}!</span>
+                    <a href="/logout" class="login-btn" style="background-color: #ff4d4d;">Logout</a>
+                 {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            
+            <h2 class="section-title">⚙️ Admin Dashboard</h2>
+
+            <div class="dashboard-grid">
+                
+                <a href="/admin/push-control" class="dash-button admin-button"> 
+                    <span>🚀</span>
+                    Push Control Center
+                </a>
+                
+                <a href="/admin/orders" class="dash-button admin-button">
+                    <span>📦</span>
+                    Manage Orders
+                </a>
+                
+                <a href="/admin/products" class="dash-button admin-button">
+                    <span>🛍️</span>
+                    Manage Products
+                </a>
+
+                <a href="#" class="dash-button admin-button">
+                    <span>👥</span>
+                    Manage Users
+                </a>
+
+                <a href="/admin/agents" class="dash-button admin-button">
+                    <span>💼</span>
+                    Manage Agents
+                </a>
+
+                <a href="#" class="dash-button admin-button">
+                    <span>📊</span>
+                    Bot Statistics
+                </a>
+                
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 ADI SELLX Admin Panel</p>
+        </div>
+    </footer>
+
+</body>
+</html>

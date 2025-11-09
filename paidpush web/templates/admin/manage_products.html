@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Products - Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Product Table Style (Manage Orders jaisa hi) */
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .product-table th, .product-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .product-table th {
+            background-color: #2a2a2a;
+            color: #ffc107; /* Admin yellow */
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .product-table td {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+        .product-table tr:hover td {
+            background-color: #252525;
+        }
+        .product-table .price-input {
+            background-color: #121212;
+            border: 1px solid #444;
+            color: white;
+            padding: 8px;
+            width: 80px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .product-table .btn-save {
+            background-color: #00aaff;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .product-table .category-header {
+            background-color: #3a3a3a;
+            color: #ffffff;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        .product-table .availability-btn {
+            background-color: #ff4d4d; /* Red: Unavailable */
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+        .product-table .availability-btn.available {
+            background-color: #00ff88; /* Green: Available */
+            color: #121212;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .product-table thead { display: none; }
+            .product-table, .product-table tbody, .product-table tr, .product-table td { 
+                display: block; 
+                width: 100%;
+            }
+            .product-table tr { 
+                margin-bottom: 15px;
+                border: 1px solid #333;
+                border-radius: 8px;
+            }
+            .product-table td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+            .product-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 15px;
+                font-weight: 700;
+                color: #888;
+                text-align: left;
+            }
+            .product-table .action-buttons {
+                text-align: center;
+                padding-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav>
+        <div class="container nav-container">
+            <div class="nav-left">
+                <a href="/" class="logo">ADMIN<span>PANEL</span></a>
+                <div class="menu-links">
+                    <a href="/">View Site</a>
+                    <a href="/admin">Dashboard</a>
+                </div>
+            </div>
+            <div class="user-actions">
+                 {% if session['username'] %}
+                    <span style="color: white; margin-right: 10px;">Welcome, {{ session['username'] }}!</span>
+                    <a href="/logout" class="login-btn" style="background-color: #ff4d4d;">Logout</a>
+                 {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            
+            <a href="/admin" class="back-button">
+                &larr; Back to Admin Dashboard
+            </a>
+
+            <h2 class="section-title">🛍️ Manage Products & Pricing</h2>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                <div style="max-width: 100%; margin: 0 auto 20px auto;">
+                {% for category, message in messages %}
+                  <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+              {% endif %}
+            {% endwith %}
+
+            <div style="text-align: right; margin-bottom: 20px;">
+                <a href="#" class="action-btn btn-approve" style="background-color: #00aaff; pointer-events: none; opacity: 0.5;">
+                    ➕ Add New Product (Future)
+                </a>
+            </div>
+
+            <form method="POST" action="/admin/products/update_all">
+            <table class="product-table">
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Current Price</th>
+                        <th>Change Price (₹)</th>
+                        <th>Availability</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set current_category = "" %}
+                    {% for product in products %}
+                        {% if product.category != current_category %}
+                            {% set current_category = product.category %}
+                            <tr>
+                                <td colspan="5" class="category-header">
+                                    {{ current_category|upper|replace('_', ' ') }}
+                                </td>
+                            </tr>
+                        {% endif %}
+                        
+                        <tr>
+                            <td data-label="Product Name">{{ product.name }}</td>
+                            <td data-label="Current Price">₹{{ "%.0f"|format(product.price) }}</td>
+                            <td data-label="Change Price">
+                                <input type="number" 
+                                       name="price_{{ product.id }}" 
+                                       value="{{ "%.0f"|format(product.price) }}" 
+                                       min="0" 
+                                       class="price-input">
+                            </td>
+                            <td data-label="Availability">
+                                {% set is_available = product.is_available == 1 %}
+                                <a href="/admin/products/toggle_availability/{{ product.id }}" 
+                                   class="availability-btn {{ 'available' if is_available else '' }}">
+                                    {{ '✅ Available' if is_available else '❌ Unavailable' }}
+                                </a>
+                            </td>
+                            <td data-label="Delete">
+                                <a href="/admin/products/delete/{{ product.id }}" class="action-btn btn-reject" onclick="return confirm('Are you sure you want to delete {{ product.name }}?');">
+                                    🗑️ Delete
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="btn-save" style="font-size: 1.2rem; padding: 10px 30px;">
+                    SAVE ALL PRICES
+                </button>
+            </div>
+            </form>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 ADI SELLX Admin Panel</p>
+        </div>
+    </footer>
+
+</body>
+</html>
